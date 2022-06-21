@@ -1,6 +1,6 @@
 const User = require("../../../DB/model/Users")
 const Student = require("../../../DB/model/student")
-const Doctor = require("../../../DB/model/doctor")
+const Doctor = require("../../../DB/model/Doctor")
 const Admin = require("../../../DB/model/Admins")
 const S_Admin = require("../../../DB/model/S_Admin")
 const bcrypt = require('bcryptjs')
