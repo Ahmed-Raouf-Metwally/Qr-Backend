@@ -6,7 +6,7 @@ require('dotenv').config()
 
 
 const connectDB = async () => {
-    return await mongoose.connect(process.env.MONGO_URL).then((result) => {
+    return await mongoose.connect(process.env.Mongo_Atlas_Connection_Str).then((result) => {
         console.log("DB(Mongo_Atlas) Connected")
     }).catch((err) => {
         console.log("connection DB Error",err)
