@@ -17,12 +17,12 @@ const connectDB = async () => {
 ////////////Local DB
 /////////////////////////////////////////////////////////////////////////////////////////////
 // const connectDB = async () => {
-//          return await mongoose.connect('mongodb://localhost:27017/QR-Back').then((result) => {
-//              console.log("DB Connected")
-//          }).catch((err) => {
-//              console.log("connection DB Error")
-//          })
-//      }
-module.exports = {
-    connectDB
-}
+//     return await mongoose.connect(process.env.MONGO_URL).then((result) => {
+//         console.log("DB Connected")
+//     }).catch((err) => {
+//         console.log("connection DB Error",err)
+//     })   
+// }
+// module.exports = {
+//     connectDB
+// }
