@@ -115,8 +115,13 @@ const changepassword =  async (req, res,next) => {
 	}
 }
 
+const home =  async (req, res,next) => {
+    res.json({ status: 'hello', })
+}
+
 module.exports = {
     SigninUser,
     SignOutUser,
-    changepassword 
+    changepassword,
+    home 
 }
