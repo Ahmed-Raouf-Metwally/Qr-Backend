@@ -1,4 +1,4 @@
-const Doctor = require("../../../DB/model/doctor")
+const Doctor = require("../../../DB/model/Doctor")
 const Topics = require("../../../DB/model/Topics")
 const Matrial = require("../../../DB/model/Matrial")
 const StAttendance = require("../../../DB/model/StudentAttendance")
