@@ -4,7 +4,7 @@
   "description": "Backend for Qr App ",
   "main": "App.js",
   "scripts": {
-    "start": "node app/App.js",
+    "start": "node App.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon App.js"
   },
