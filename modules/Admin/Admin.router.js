@@ -2,7 +2,7 @@ const AdminRouter = require('express').Router();
 
 const { addDoctor,addMatrialtodoc } = require('./controller/DrOP');
 const { addMatrial } = require('./controller/MatrialOP');
-const { addStudent,addMatrialtoOneStud,AddMatrialToAllStud  } = require('./controller/StudOP');
+const { addStudent,addMatrialtoOneStud,AddMatrialToAllStud, RemoveMatrialtoOneStud  } = require('./controller/StudOP');
 
 
 
@@ -15,6 +15,7 @@ AdminRouter.put('/AddMatrialToAllStud',AddMatrialToAllStud )
 AdminRouter.post('/addMatrialtoDoc',addMatrialtodoc)
 AdminRouter.post('/addDoctor',addDoctor)
 AdminRouter.post('/addMatrial',addMatrial)
+AdminRouter.patch('/RemoveMatrialtoOneStud',RemoveMatrialtoOneStud)
 
 
 

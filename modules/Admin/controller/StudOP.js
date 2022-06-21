@@ -46,6 +46,31 @@ const addMatrialtoOneStud = async (req, res, next) => {
     }
 }
 
+const RemoveMatrialtoOneStud = async (req, res, next) => {
+    const Mat = { mID, sID} = req.body;
+    const matrial = await Matrial.findOne({ ID: mID})
+    const student = await Student.findOne({ ID: sID })
+    if (!student) {
+        res.json(" student is not added before ")
+    }
+    if(!student.Subjects.includes(mID)) {
+        res.json(" subject is not added before ")
+    } else {
+        if (matrial) {
+            student.Subjects.pop(mID)
+            try {
+                const savedmatrialtoStud = await Student.findOneAndUpdate({ ID: sID }, { Subjects: student.Subjects}, { new: true })
+                res.json({ message: "Done", matrial, savedmatrialtoStud })
+            } catch (error) {
+                res.json({ error })
+                console.log(error)
+            }
+        } else {
+            res.json("Matrial ID not exist")
+        }
+    }
+}
+
 const AddMatrialToAllStud = async (req, res, next) => {
     const { mID, sLv } = req.body;
     try {
@@ -66,7 +91,8 @@ const AddMatrialToAllStud = async (req, res, next) => {
 module.exports = {
     addStudent,
     addMatrialtoOneStud,
-    AddMatrialToAllStud 
+    AddMatrialToAllStud ,
+    RemoveMatrialtoOneStud
 }
 
 
