@@ -6,7 +6,7 @@ const UserRouter = require('express').Router();
 
 UserRouter.post('/logIn',SigninUser)
 UserRouter.post('/logout',SignOutUser)
-UserRouter.get('/',home)
+UserRouter.get('/app',home)
 
 
 
