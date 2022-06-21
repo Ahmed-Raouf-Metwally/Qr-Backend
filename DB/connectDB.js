@@ -23,6 +23,6 @@ const connectDB = async () => {
 //         console.log("connection DB Error",err)
 //     })   
 // }
-// module.exports = {
-//     connectDB
-// }
+module.exports = {
+    connectDB
+}
