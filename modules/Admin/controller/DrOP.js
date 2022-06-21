@@ -1,4 +1,4 @@
-const Doctor = require("../../../DB/model/doctor")
+const Doctor = require("../../../DB/model/Doctor")
 const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
 const bcrypt = require('bcryptjs')
