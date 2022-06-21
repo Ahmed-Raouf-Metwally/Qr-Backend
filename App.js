@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json()) 
 
-const { connectDB } = require('./DB/connectDB.JS')
+const { connectDB } = require('./DB/connectDB')
 connectDB(); // DB Conection
 
 const AdminRouter = require('./modules/Admin/Admin.router')
