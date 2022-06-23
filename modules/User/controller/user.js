@@ -11,14 +11,14 @@ const JWT = process.env.JWT_SEC
 
 const SigninUser = async (req, res, next) => {
     const { Email, Password } = req.body;
-    const logedInUser = await User.findOne({ Email, Password })
+    const logedInUser = await User.find({ Email, Password })
     Id = logedInUser.ID
 
     if (logedInUser) {
         if (logedInUser = await bcrypt.compare(Password, User.Password)) {
             if (logedInUser.Role == 4) {
                 const student = await Student.findOneAndUpdate({"ID":Id},{ "LogedIn":true },{new:true})
-                console.log("dobe")
+                console.log("done")
 
                // Student.over()//////stoped here (log in)
                 res.json(student)
