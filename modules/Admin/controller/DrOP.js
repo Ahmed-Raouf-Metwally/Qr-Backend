@@ -9,7 +9,7 @@ const { json } = require("express")
 const addDoctor = async (req, res, next) => {
     try {
         const Dr = { ID, Name, Email, matrials, Subjects, Password: crayptedPass } = req.body;
-        //const Password = await bcrypt.hash(crayptedPass, 10)
+        const Password = await bcrypt.hash(crayptedPass, 10)
         const doctor = await Doctor.findOne({ ID })
         if (doctor) {
             res.json({ message: "ID exist" })
