@@ -5,33 +5,43 @@ const bcrypt = require('bcryptjs')
 
 
 const addAdmin = async (req, res, next) => {
-    const Adm = { ID, Name, Email, Password:crayptedPass } = req.body;
-    const Password = await bcrypt.hash(crayptedPass, 10)
-    const admin = await Admin.findOne({ ID })
+    const Adm = { ID, Name, Email, Password: crayptedPass } = req.body;
 
-    if (admin) {
-        res.json({ message: "ID exist" })
-    } else {
-        const Role=2
-        const saveduser =await User.insertMany([{ID,Email,Password,Role}])
-        const savedAdmin =await Admin.insertMany([{ID,Name,Email,Password}])
-        res.json({ message: "Done" })
+    try {
+        const Password = await bcrypt.hash(crayptedPass, 10)
+        const admin = await Admin.findOne({ ID })
+
+        if (admin) {
+            res.json({ message: "ID exist" })
+        } else {
+            const Role = 2
+            const saveduser = await User.insertMany([{ ID, Email, Password, Role }])
+            const savedAdmin = await Admin.insertMany([{ ID, Name, Email, Password }])
+            res.json({ message: "Done" })
+        }
+    } catch (error) {
+        res.json(error)
     }
 
 }
 const addS_Admin = async (req, res, next) => {
-    const S_Adm = { ID, Name, Email, Password:crayptedPass } = req.body;
-    const Password = await bcrypt.hash(crayptedPass, 10)
-    const s_admin = await SuperAdmin.findOne({ ID })
+    const S_Adm = { ID, Name, Email, Password: crayptedPass } = req.body;
 
-    if (s_admin) {
-        res.json({ message: "ID exist" })
-    } else {
-        const Role=1
-        const saveduser =await User.insertMany([{ID,Email,Password,Role}])
-        const savedAdmin =await SuperAdmin.insertMany([{ID,Name,Email,Password}])
-        
-        res.json({ message: "Done" })
+    try {
+        const Password = await bcrypt.hash(crayptedPass, 10)
+        const s_admin = await SuperAdmin.findOne({ ID })
+
+        if (s_admin) {
+            res.json({ message: "ID exist" })
+        } else {
+            const Role = 1
+            const saveduser = await User.insertMany([{ ID, Email, Password, Role }])
+            const savedAdmin = await SuperAdmin.insertMany([{ ID, Name, Email, Password }])
+
+            res.json({ message: "Done" })
+        }
+    } catch (error) {
+        res.json(error)
     }
 
 }

@@ -14,7 +14,7 @@ const addDoctor = async (req, res, next) => {
         if (doctor) {
             res.json({ message: "ID exist" })
         } else {
-
+            
             const Role = 3
             const saveduser = await User.insertMany([{ ID, Email, Password, Role }])
             const savedDoctor = await Doctor.insertMany([{ ID, Name, Email, matrials, Subjects, Password }])
@@ -22,11 +22,9 @@ const addDoctor = async (req, res, next) => {
             res.json({ message: "Done" })
         }
     } catch (error) {
-
-        console.log(error)
         res.json(error)
-
     }
+   
 }
 const addMatrialtodoc = async (req, res, next) => {
     try {
