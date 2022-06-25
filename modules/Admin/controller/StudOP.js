@@ -2,36 +2,33 @@ const Student = require("../../../DB/model/student")
 const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
 const bcrypt = require('bcryptjs')
-let salt =process.env.salt
+let salt = process.env.salt
+
+
+
 const addStudent = async (req, res, next) => {
     try {
-        const stu = { ID, Name, Email, Level, Subjects, Password } = req.body;
-        const Password = await bcrypt.hash(Password, salt, function (err, hash) {
-            let hashedPassword = hash
-        })
+        const stu = { ID, Name, Email, Level, Subjects, Password: crayptedPass } = req.body;
+        const Password = await bcrypt.hash(crayptedPass, 10)
         const student = await Student.findOne({ ID })
 
         if (student) {
             res.json({ message: "ID exist" })
         } else {
 
-            const savedStudent = await Student.insertMany([{ ID, Name, Email, Level, Password: hashedPassword, Subjects }])
+            const savedStudent = await Student.insertMany([{ ID, Name, Email, Level, Password, Subjects }])
             const Role = 4
-            const saveduser = await User.insertMany([{ ID, Email, Password: hashedPassword, Role }])
+            const saveduser = await User.insertMany([{ ID, Email, Password, Role }])
 
             res.json({ message: "Done" })
         }
     } catch (error) {
-
-
-        res.json(error)
-
+        res.json({ Error: error })
     }
 
-
-
-
 }
+
+
 
 const addMatrialtoOneStud = async (req, res, next) => {
     try {

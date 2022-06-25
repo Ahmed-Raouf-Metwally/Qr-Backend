@@ -3,30 +3,28 @@ const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
 const bcrypt = require('bcryptjs')
 const { json } = require("express")
-let salt =process.env.salt
-
+let salt = process.env.salt
 
 
 const addDoctor = async (req, res, next) => {
     try {
-        const Dr = { ID, Name, Email, matrials, Subjects, Password } = req.body;
-        const Password = await bcrypt.hash(Password, salt, function (err, hash) {
-            let hashedPassword = hash
-        })
+        const Dr = { ID, Name, Email, matrials, Subjects, Password: crayptedPass } = req.body;
+        const Password = await bcrypt.hash(crayptedPass, 10)
         const doctor = await Doctor.findOne({ ID })
         if (doctor) {
             res.json({ message: "ID exist" })
         } else {
 
             const Role = 3
-            const saveduser = await User.insertMany([{ ID, Email, Password: hashedPassword, Role }])
-            const savedDoctor = await Doctor.insertMany([{ ID, Name, Email, matrials, Subjects, Password: hashedPassword }])
+            const saveduser = await User.insertMany([{ ID, Email, Password, Role }])
+            const savedDoctor = await Doctor.insertMany([{ ID, Name, Email, matrials, Subjects, Password }])
 
             res.json({ message: "Done" })
         }
     } catch (error) {
-        res.json(error)
+        res.json({ Error: error })
     }
+
 
 }
 const addMatrialtodoc = async (req, res, next) => {
