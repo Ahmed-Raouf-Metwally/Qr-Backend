@@ -13,11 +13,11 @@ const SigninUser = async (req, res, next) => {
     const { Email, Password } = req.body;
 
 
-    try {
+    
         const logedInUser = await User.findOne({ Email })
-        Id = logedInUser.ID
-
         if (logedInUser) {
+            try {
+            Id = logedInUser.ID
             await bcrypt.compare(Password, logedInUser.Password, async function (err, result) {
                 if (result) {
                     if (logedInUser.Role == 4) {
@@ -46,12 +46,16 @@ const SigninUser = async (req, res, next) => {
                 else {
                     res.json({ message: "your Email Or Password is Incorrect" })
                 }
+                
             })
+        } catch (error) {
+            res.json(error)
+        }
+        }else{
+            res.json({message:"you are not a user"})
         }
 
-    } catch (error) {
-        res.json(error)
-    }
+    
 }
 
 
@@ -64,32 +68,27 @@ const SignOutUser = async (req, res, next) => {
         const logedInUser = await User.findOne({ "ID": ID })
         const Id = logedInUser.ID
 
-        if(logedInUser){
-            if (logedInUser.Role == 4) {
-                const student = await Student.findOneAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
-                res.json(student)
-            }
-            else if (logedInUser.Role == 3) {
-                Id = logedInUser.ID
-                const Dr = await Doctor.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
-                res.json(Dr)
-            }
-            else if (logedInUser.Role == 2) {
-                Id = logedInUser.ID
-                const admin = await Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
-                res.json(admin)
-            }
-            else if (logedInUser.Role == 1) {
-                Id = logedInUser.ID
-                const sAdmin = await S_Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
-                res.json(sAdmin)
-            }
-            else {
-                res.json({ message: "You Are not Autrized" })
-            }
+        if (logedInUser.Role == 4) {
+            const student = await Student.findOneAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
+            res.json(student)
         }
-        else{
-            res.json({message:"you are not a user"})
+        else if (logedInUser.Role == 3) {
+            Id = logedInUser.ID
+            const Dr = await Doctor.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
+            res.json(Dr)
+        }
+        else if (logedInUser.Role == 2) {
+            Id = logedInUser.ID
+            const admin = await Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
+            res.json(admin)
+        }
+        else if (logedInUser.Role == 1) {
+            Id = logedInUser.ID
+            const sAdmin = await S_Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
+            res.json(sAdmin)
+        }
+        else {
+            res.json({ message: "You Are not Autrized" })
         }
     } catch (error) {
         res.json(error)
