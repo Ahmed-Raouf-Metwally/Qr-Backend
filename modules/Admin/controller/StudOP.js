@@ -1,7 +1,7 @@
 const Student = require("../../../DB/model/student")
 const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 let salt =process.env.salt
 const addStudent = async (req, res, next) => {
     try {

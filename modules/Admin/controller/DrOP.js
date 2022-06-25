@@ -1,7 +1,7 @@
 const Doctor = require("../../../DB/model/Doctor")
 const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const { json } = require("express")
 let salt =process.env.salt
 

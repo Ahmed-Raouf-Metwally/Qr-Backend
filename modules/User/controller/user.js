@@ -3,7 +3,7 @@ const Student = require("../../../DB/model/student")
 const Doctor = require("../../../DB/model/Doctor")
 const Admin = require("../../../DB/model/Admins")
 const S_Admin = require("../../../DB/model/S_Admin")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const JWT = process.env.JWT_SEC

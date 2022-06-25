@@ -1,7 +1,7 @@
 const Admin = require("../../../DB/model/Admins")
 const SuperAdmin = require("../../../DB/model/S_Admin")
 const User = require("../../../DB/model/Users")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 let salt =process.env.salt
 
 
