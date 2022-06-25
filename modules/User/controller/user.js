@@ -22,22 +22,21 @@ const SigninUser = async (req, res, next) => {
                 if (result) {
                     if (logedInUser.Role == 4) {
                         const student = await Student.findOneAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
-                        console.log("done")
                         res.json(student)
                     }
                     else if (logedInUser.Role == 3) {
                         Id = logedInUser.ID
-                        const Dr = await Doctor.findByIdAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
+                        const Dr = await Doctor.findOneAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
                         res.json(Dr)
                     }
                     else if (logedInUser.Role == 2) {
                         Id = logedInUser.ID
-                        const admin = await Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
+                        const admin = await Admin.findOneAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
                         res.json(admin)
                     }
                     else if (logedInUser.Role == 1) {
                         Id = logedInUser.ID
-                        const sAdmin = await S_Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
+                        const sAdmin = await S_Admin.findOneAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
                         res.json(sAdmin)
                     }
                     else {
