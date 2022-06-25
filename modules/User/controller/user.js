@@ -23,8 +23,6 @@ const SigninUser = async (req, res, next) => {
                     if (logedInUser.Role == 4) {
                         const student = await Student.findOneAndUpdate({ "ID": Id }, { "LogedIn": true }, { new: true })
                         console.log("done")
-
-                        // Student.over()//////stoped here (log in)
                         res.json(student)
                     }
                     else if (logedInUser.Role == 3) {
