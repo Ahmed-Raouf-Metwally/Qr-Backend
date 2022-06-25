@@ -3,13 +3,14 @@ const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
 const bcrypt = require('bcrypt')
 const { json } = require("express")
+let salt =process.env.salt
 
 
 
 const addDoctor = async (req, res, next) => {
     try {
         const Dr = { ID, Name, Email, matrials, Subjects, Password } = req.body;
-        const Password = await bcrypt.hash(Password, process.env.salt, function (err, hash) {
+        const Password = await bcrypt.hash(Password, salt, function (err, hash) {
             let hashedPassword = hash
         })
         const doctor = await Doctor.findOne({ ID })

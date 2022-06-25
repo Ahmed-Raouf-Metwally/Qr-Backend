@@ -2,11 +2,11 @@ const Student = require("../../../DB/model/student")
 const User = require("../../../DB/model/Users")
 const Matrial = require("../../../DB/model/Matrial")
 const bcrypt = require('bcrypt')
-
+let salt =process.env.salt
 const addStudent = async (req, res, next) => {
     try {
         const stu = { ID, Name, Email, Level, Subjects, Password } = req.body;
-        const Password = await bcrypt.hash(Password, process.env.salt, function (err, hash) {
+        const Password = await bcrypt.hash(Password, salt, function (err, hash) {
             let hashedPassword = hash
         })
         const student = await Student.findOne({ ID })

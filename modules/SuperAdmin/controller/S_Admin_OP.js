@@ -2,13 +2,14 @@ const Admin = require("../../../DB/model/Admins")
 const SuperAdmin = require("../../../DB/model/S_Admin")
 const User = require("../../../DB/model/Users")
 const bcrypt = require('bcrypt')
+let salt =process.env.salt
 
 
 const addAdmin = async (req, res, next) => {
     const Adm = { ID, Name, Email, Password } = req.body;
 
     try {
-        const Password = await bcrypt.hash(Password, process.env.salt, function (err, hash) {
+        const Password = await bcrypt.hash(Password, salt, function (err, hash) {
             let hashedPassword = hash
         })
         const admin = await Admin.findOne({ ID })
