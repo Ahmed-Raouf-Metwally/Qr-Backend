@@ -10,7 +10,7 @@ const JWT = process.env.JWT_SEC
 
 
 const SigninUser = async (req, res, next) => {
-    const { Email, Password } = req.body;
+    const reqq= { Email, Password } = req.body;
 
 
     
@@ -44,6 +44,7 @@ const SigninUser = async (req, res, next) => {
                     }
                 }
                 else {
+                    console.log(req.Email)
                     res.json({ message: "your Email Or Password is Incorrect" })
                 }
                 
@@ -52,6 +53,7 @@ const SigninUser = async (req, res, next) => {
             res.json(error)
         }
         }else{
+            console.log(reqq)
             res.json({message:"you are not a user"})
         }
 
