@@ -10,13 +10,13 @@ const JWT = process.env.JWT_SEC
 
 
 const SigninUser = async (req, res, next) => {
-    const reqq= { Email, Password } = req.body;
+    const reqq = { Email, Password } = req.body;
 
 
-    
-        const logedInUser = await User.findOne({ Email })
-        if (logedInUser) {
-            try {
+
+    const logedInUser = await User.findOne({ Email })
+    if (logedInUser) {
+        try {
             Id = logedInUser.ID
             await bcrypt.compare(Password, logedInUser.Password, async function (err, result) {
                 if (result) {
@@ -47,24 +47,19 @@ const SigninUser = async (req, res, next) => {
                     console.log(req.Email)
                     res.json({ message: "your Email Or Password is Incorrect" })
                 }
-                
+
             })
         } catch (error) {
             res.json(error)
         }
-        }else{
-            console.log(reqq)
-            res.json({message:"you are not a user"})
-        }
-
-    
+    } else {
+        console.log(reqq)
+        res.json({ message: "you are not a user" })
+    }
 }
-
-
 
 const SignOutUser = async (req, res, next) => {
     const { ID } = req.body;
-
 
     try {
         const logedInUser = await User.findOne({ "ID": ID })
@@ -100,40 +95,39 @@ const SignOutUser = async (req, res, next) => {
 
 const changepassword = async (req, res, next) => {
     const { ID, oldPassword, newPassword, cPassword } = req.body
-    const OldPassword = await bcrypt.hash(oldPassword, 10)
     const NewPassword = await bcrypt.hash(newPassword, 10)
-    const user = await User.find({"ID":ID})
+    const user = await User.findOne({ "ID": ID })
     try {
         if (newPassword == cPassword) {
             if (user) {
                 await bcrypt.compare(oldPassword, user.Password, async function (err, result) {
                     if (result) {
                         if (user.Role == 4) {
-                            const student = await Student.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            res.json ({message :"Password Updated Suceccfully"})
+                            const student = await Student.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            res.json({ message: "Password Updated Suceccfully" })
                         }
-                        else if(user.Role == 3){
-                            const student = await Doctor.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            res.json ({message :"Password Updated Suceccfully"})
+                        else if (user.Role == 3) {
+                            const student = await Doctor.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            res.json({ message: "Password Updated Suceccfully" })
                         }
-                        else if(user.Role == 2){
-                            const student = await Admin.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            res.json ({message :"Password Updated Suceccfully"})
+                        else if (user.Role == 2) {
+                            const student = await Admin.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            res.json({ message: "Password Updated Suceccfully" })
                         }
-                        else if(user.Role == 1){
-                            const student = await S_Admin.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
-                            res.json ({message :"Password Updated Suceccfully"})
+                        else if (user.Role == 1) {
+                            const student = await S_Admin.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "ID": ID }, { "Password": NewPassword }, { new: true })
+                            res.json({ message: "Password Updated Suceccfully" })
                         }
                     }
                     else {
                         res.json({ message: "your old password is not correct" })
                     }
                 })
-    
+
             }
             else {
                 res.json({ message: "user is not founded" })
