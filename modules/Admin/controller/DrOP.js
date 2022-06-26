@@ -30,8 +30,6 @@ const addDoctor = async (req, res, next) => {
 const addMatrialtodoc = async (req, res, next) => {
     try {
         const Mat = { mID, dID } = req.body;
-        // const matrial = await Matrial.findById({ mID})
-        // const doctor = await Doctor.findOne({ dID })
         const matrial = await Matrial.findOne({ ID: mID })
         const doctor = await Doctor.findOne({ ID: dID })
         if (!doctor) {

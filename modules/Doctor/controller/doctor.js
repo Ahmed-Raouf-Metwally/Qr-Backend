@@ -27,9 +27,10 @@ const getDrmat = async (req, res, next) => {
 }
 ////////// toppics ////// 
 const addtopic = async (req, res, next) => {
-    const Top = { Name, Mat_ref } = req.body;
-    const matrial = await Matrial.findById({ _id: Mat_ref })
-    const topic = await Topics.findOne({ Name, Mat_ref })
+    const Top = { Name, Mat_ID } = req.body;
+    const matrial = await Matrial.findOne({ "ID": Mat_ID })
+    matrial_ID = matrial.id
+    const topic = await Topics.findOne({ Name, "ID":matrial_ID })
     if (topic) {
         res.json("topic has been added before")
     }
@@ -44,9 +45,9 @@ const addtopic = async (req, res, next) => {
             try {
                 // const savedtopic = await Topics.([{ Name, QR, Mat_ref }])
                 ////
-                const newtopic = new Topics({ Name, QR, Mat_ref })
+                const newtopic = new Topics({ Name, QR, matrial_ID })
                 //const savedtopic =await newtopic.save()
-                const savedtopic = await Topics.create({ ID, Name, QR, Mat_ref })
+                const savedtopic = await Topics.create({ ID, Name, QR, Mat_ref : matrial_ID })
 
 
                 ////
@@ -54,7 +55,7 @@ const addtopic = async (req, res, next) => {
                 var topics = matrial.topics
                 topics.push(Name)
 
-                const savedtopicMAtrial = await Matrial.findOneAndUpdate({ _id: Mat_ref }, { topics }, { new: true })
+                const savedtopicMAtrial = await Matrial.findOneAndUpdate({ _id: matrial_ID }, { topics }, { new: true })
                 res.json({ message: "Done", matrial, savedtopic })
             } catch (error) {
                 res.json({ error })

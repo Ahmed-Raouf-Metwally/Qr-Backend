@@ -50,7 +50,7 @@ const SigninUser = async (req, res, next) => {
 
             })
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
     } else {
         console.log(reqq)
@@ -83,12 +83,13 @@ const SignOutUser = async (req, res, next) => {
             Id = logedInUser.ID
             const sAdmin = await S_Admin.findByIdAndUpdate({ "ID": Id }, { "LogedIn": false }, { new: true })
             res.json(sAdmin)
+            
         }
         else {
             res.json({ message: "You Are not Autrized" })
         }
     } catch (error) {
-        res.json(error)
+        res.json({error})
     }
 }
 
@@ -134,7 +135,7 @@ const changepassword = async (req, res, next) => {
             }
         }
     } catch (error) {
-        res.json(error);
+        res.json({error});
     }
 }
 const home = async (req, res, next) => {
