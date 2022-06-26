@@ -100,6 +100,7 @@ const AddMatrialToAllStud = async (req, res, next) => {
     try {
         const material = await Matrial.findOne({ ID: mID });
         //const students = await Student.find({Level:sLv});
+        
         if (material) {
             const savedmatrialtoAllStud = await Student.updateMany({ Level: sLv, Subjects: { "$ne": mID } }, { "$push": { Subjects: mID } });
             res.status(200).json({ message: "Done", savedmatrialtoAllStud });
