@@ -95,71 +95,35 @@ const SignOutUser = async (req, res, next) => {
     }
 }
 
-/*
-const changepassword = async (req, res, next) => {
-    const { token, newpassword: Password } = req.body
-
-    if (!Password || typeof Password !== 'string') {
-        return res.json({ status: 'error', error: 'Invalid password' })
-    }
-
-    if (Password.length < 7) {
-        return res.json({
-            status: 'error',
-            error: 'Password too small. Should be atleast 8 characters'
-        })
-    }
-
-    try {
-        const user = jwt.verify(token, JWT)
-
-        const _id = user.id
-
-        const password = await bcrypt.hash(Password, 10)
-
-        await User.updateOne(
-            { _id },
-            {
-                $set: { password }
-            }
-        )
-        res.json({ status: 'ok' })
-    } catch (error) {
-        console.log(error)
-        res.json({ status: 'error', error: ';))' })
-    }
-}
-*/
-
 
 const changepassword = async (req, res, next) => {
     const { ID, oldPassword, newPassword, cPassword } = req.body
     const OldPassword = await bcrypt.hash(oldPassword, 10)
     const NewPassword = await bcrypt.hash(newPassword, 10)
-    const user = await User.findById(ID)
+    const user = await User.find({"ID":ID})
     try {
         if (newPassword == cPassword) {
             if (user) {
                 await bcrypt.compare(oldPassword, user.Password, async function (err, result) {
                     if (result) {
                         if (user.Role == 4) {
-                            const student = await Student.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
+                            const student = await Student.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
                             res.json ({message :"Password Updated Suceccfully"})
                         }
                         else if(user.Role == 3){
-                            const student = await Doctor.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
+                            const student = await Doctor.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
                             res.json ({message :"Password Updated Suceccfully"})
                         }
                         else if(user.Role == 2){
-                            const student = await Admin.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
+                            const student = await Admin.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
                             res.json ({message :"Password Updated Suceccfully"})
                         }
                         else if(user.Role == 1){
-                            const student = await S_Admin.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
-                            const user = await User.findOneAndUpdate({ "_id": ID }, { "Password": NewPassword }, { new: true })
+                            const student = await S_Admin.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
+                            const user = await User.findOneAndUpdate({ "_id": user._id }, { "Password": NewPassword }, { new: true })
                             res.json ({message :"Password Updated Suceccfully"})
                         }
                     }
